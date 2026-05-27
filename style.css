@@ -1,0 +1,316 @@
+:root {
+    --cs-primary:       #2563eb;
+    --cs-primary-dark:  #1d4ed8;
+    --cs-surface:       #f8fafc;
+    --cs-border:        #e2e8f0;
+    --cs-text:          #1e293b;
+    --cs-muted:         #64748b;
+}
+
+/* ─── Base ─────────────────────────────────────────────── */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--cs-surface);
+    color: var(--cs-text);
+    min-height: 100vh;
+}
+
+/* ─── Auth Layout ───────────────────────────────────────── */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    padding: 2rem 1rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    padding: 2.5rem;
+}
+
+.auth-logo-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0 auto 1.25rem;
+}
+
+/* ─── Navbar ────────────────────────────────────────────── */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.3px;
+}
+
+.navbar .nav-link-custom {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.15s;
+}
+
+.navbar .nav-link-custom:hover {
+    color: #fff;
+}
+
+/* ─── Forms ─────────────────────────────────────────────── */
+.form-label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--cs-muted);
+    margin-bottom: 0.375rem;
+}
+
+.form-control,
+.form-select {
+    border-radius: 0.625rem;
+    padding: 0.65rem 0.875rem;
+    border: 1.5px solid var(--cs-border);
+    font-size: 0.925rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    background-color: #fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--cs-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #b0bec5;
+}
+
+/* Input with icon */
+.input-icon-wrapper {
+    position: relative;
+}
+
+.input-icon-wrapper .input-icon {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input-icon-wrapper .form-control {
+    padding-left: 2.6rem;
+}
+
+/* ─── Buttons ───────────────────────────────────────────── */
+.btn {
+    border-radius: 0.625rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--cs-primary);
+    border-color: var(--cs-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--cs-primary-dark);
+    border-color: var(--cs-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.btn-outline-primary {
+    border-color: var(--cs-primary);
+    color: var(--cs-primary);
+    border-radius: 0.625rem;
+}
+
+.btn-outline-primary:hover {
+    background: var(--cs-primary);
+    border-color: var(--cs-primary);
+}
+
+/* ─── Cards ─────────────────────────────────────────────── */
+.card {
+    border: 1px solid var(--cs-border);
+    border-radius: 0.875rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid var(--cs-border);
+    border-radius: 0.875rem 0.875rem 0 0 !important;
+    padding: 1rem 1.25rem;
+}
+
+/* ─── Tables ────────────────────────────────────────────── */
+.table {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: #f1f5f9;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--cs-muted);
+    border-bottom: 2px solid var(--cs-border);
+    padding: 0.875rem 1rem;
+    white-space: nowrap;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 0.875rem 1rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* ─── Badges ────────────────────────────────────────────── */
+.badge {
+    font-weight: 500;
+    font-size: 0.78rem;
+    padding: 0.38em 0.75em;
+    border-radius: 0.5rem;
+}
+
+/* ─── Stat Cards ────────────────────────────────────────── */
+.stat-card {
+    border-radius: 0.875rem;
+    border: none;
+    padding: 1.4rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    right: -1.25rem;
+    bottom: -1.25rem;
+    width: 5.5rem;
+    height: 5.5rem;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+}
+
+.stat-card .stat-icon {
+    font-size: 1.6rem;
+    opacity: 0.9;
+}
+
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-top: 0.4rem;
+}
+
+.stat-card .stat-label {
+    font-size: 0.82rem;
+    opacity: 0.85;
+    margin-top: 0.15rem;
+}
+
+/* ─── Hero (Landing Page) ───────────────────────────────── */
+.hero-section {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+/* ─── Feature Cards (Landing) ───────────────────────────── */
+.feature-card {
+    border-radius: 0.875rem;
+    border: 1px solid var(--cs-border);
+    padding: 2rem 1.5rem;
+    background: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+}
+
+.feature-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+/* ─── Alert ─────────────────────────────────────────────── */
+.alert {
+    border-radius: 0.75rem;
+    border: none;
+    font-size: 0.9rem;
+}
+
+/* ─── Empty State ───────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #94a3b8;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+/* ─── Footer ────────────────────────────────────────────── */
+.site-footer {
+    background: #fff;
+    border-top: 1px solid var(--cs-border);
+    padding: 1.25rem 0;
+    margin-top: 4rem;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* ─── Detail Info Grid ──────────────────────────────────── */
+.detail-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--cs-muted);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.detail-value {
+    font-weight: 500;
+    color: var(--cs-text);
+    font-size: 0.925rem;
+}
