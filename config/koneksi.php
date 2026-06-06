@@ -1,8 +1,5 @@
 <?php
-// Gunakan /tmp jika environment Railway (writable guaranteed), fallback ke folder database lokal
-$dbPath = getenv('RAILWAY_ENVIRONMENT') !== false
-    ? '/tmp/cleanspace.db'
-    : __DIR__ . '/../database/cleanspace.db';
+$dbPath = __DIR__ . '/../database/cleanspace.db';
 
 if (!is_dir(dirname($dbPath))) {
     mkdir(dirname($dbPath), 0777, true);
