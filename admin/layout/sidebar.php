@@ -52,7 +52,7 @@ $pendingCount = $db->querySingle("SELECT COUNT(*) FROM orders WHERE status = 'Me
     </a>
 
     <div class="sb-group-label">Sistem</div>
-    <a href="#" class="sb-link <?= $currentPage === 'pengaturan' ? 'active' : '' ?>">
+    <a href="<?= $basePath ?>admin/pengaturan/index.php" class="sb-link <?= $currentPage === 'pengaturan' ? 'active' : '' ?>">
       <i class="bi bi-gear"></i> Pengaturan
     </a>
     <a href="<?= $basePath ?>auth/logout.php" class="sb-link danger">
