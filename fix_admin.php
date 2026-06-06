@@ -1,6 +1,7 @@
 <?php
 // File sementara untuk debug & reset admin — HAPUS setelah selesai
 include 'config/koneksi.php';
+$dbUsed = getenv('RAILWAY_ENVIRONMENT') !== false ? '/tmp/cleanspace.db' : __DIR__ . '/database/cleanspace.db';
 
 $msg = '';
 
@@ -28,6 +29,11 @@ $total = $db->querySingle("SELECT COUNT(*) FROM users");
 <?php endif; ?>
 
 <h3>Status Database</h3>
+<pre>
+DB Path : <?= $dbUsed ?>
+
+RAILWAY_ENVIRONMENT : <?= getenv('RAILWAY_ENVIRONMENT') ?: '(tidak ada — lokal)' ?>
+</pre>
 <pre>
 Total users di DB : <?= (int)$total ?>
 
