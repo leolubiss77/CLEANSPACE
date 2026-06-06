@@ -72,26 +72,38 @@ a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
 /* ═══════════════════════════════════════════════
-   LAYOUT
+   LAYOUT  (sticky sidebar — tidak pakai fixed+margin)
 ═══════════════════════════════════════════════ */
 .admin-wrap {
   display: flex;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .admin-main {
-  margin-left: var(--sb-width);
   flex: 1;
-  min-width: 0;
+  min-width: 0;           /* cegah content mendorong sidebar */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .admin-body {
   flex: 1;
   padding: 1.75rem 2rem;
 }
+
+/* Mobile overlay */
+.sb-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 199;
+}
+.sb-overlay.active { display: block; }
+
 @media (max-width: 1024px) {
-  .admin-main { margin-left: 0; }
+  .admin-body { padding: 1.25rem; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -99,15 +111,32 @@ img { max-width: 100%; display: block; }
 ═══════════════════════════════════════════════ */
 .admin-sidebar {
   width: var(--sb-width);
+  flex-shrink: 0;           /* tidak menyusut dalam flex */
   background: var(--sb-bg);
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 200;
   border-right: 1px solid var(--sb-border);
+  transition: width var(--t), transform var(--t);
+}
+
+/* Mobile: sidebar geser ke kiri */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    z-index: 200;
+  }
+  .admin-sidebar.sb-open {
+    transform: translateX(0);
+  }
 }
 .admin-sidebar::-webkit-scrollbar { width: 4px; }
 .admin-sidebar::-webkit-scrollbar-track { background: transparent; }
@@ -714,6 +743,40 @@ img { max-width: 100%; display: block; }
 /* ═══════════════════════════════════════════════
    UTILITIES
 ═══════════════════════════════════════════════ */
+/* Toggle button */
+.sb-toggle-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer;
+  border-radius: var(--r-md);
+  color: var(--admin-muted);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  transition: background var(--t), color var(--t);
+  margin-right: .5rem;
+}
+.sb-toggle-btn:hover { background: var(--admin-bg); color: var(--admin-text); }
+
+/* Collapsed sidebar (desktop) */
+.admin-sidebar.sb-collapsed {
+  width: 68px;
+}
+.admin-sidebar.sb-collapsed .sb-group-label,
+.admin-sidebar.sb-collapsed .sb-logo-name,
+.admin-sidebar.sb-collapsed .sb-logo-tag,
+.admin-sidebar.sb-collapsed .sb-link-badge,
+.admin-sidebar.sb-collapsed .sb-user-name,
+.admin-sidebar.sb-collapsed .sb-user-role {
+  display: none;
+}
+.admin-sidebar.sb-collapsed .sb-link {
+  justify-content: center;
+  padding: .75rem;
+}
+.admin-sidebar.sb-collapsed .sb-link i { margin-right: 0; }
+.admin-sidebar.sb-collapsed .sb-logo-inner { justify-content: center; }
+.admin-sidebar.sb-collapsed .sb-user-inner { justify-content: center; }
+
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
 .flex-between { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }

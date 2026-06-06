@@ -29,9 +29,15 @@ $basePath    = $basePath    ?? '../';
 
 <div class="admin-main">
 
+  <!-- Mobile overlay -->
+  <div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
   <!-- Topbar -->
   <header class="admin-topbar">
     <div class="tb-left">
+      <button class="sb-toggle-btn" id="sbToggle" onclick="toggleSidebar()" title="Toggle Sidebar">
+        <i class="bi bi-list"></i>
+      </button>
       <div class="tb-breadcrumb">
         <a href="<?= $basePath ?>admin/dashboard.php">CleanSpace</a>
         <span class="sep"><i class="bi bi-chevron-right"></i></span>
