@@ -44,11 +44,20 @@ $db->exec("CREATE TABLE IF NOT EXISTS orders (
 // Seed data awal jika database kosong
 if ($db->querySingle("SELECT COUNT(*) FROM users") == 0) {
     $adminPass = password_hash('admin123', PASSWORD_DEFAULT);
+    $userPass  = password_hash('user123',  PASSWORD_DEFAULT);
+
     $stmt = $db->prepare("INSERT INTO users (nama, email, password, role) VALUES (?, ?, ?, ?)");
-    $stmt->bindValue(1, 'Admin',                 SQLITE3_TEXT);
-    $stmt->bindValue(2, 'admin@cleanspace.com',  SQLITE3_TEXT);
-    $stmt->bindValue(3, $adminPass,              SQLITE3_TEXT);
-    $stmt->bindValue(4, 'admin',                 SQLITE3_TEXT);
+
+    $stmt->bindValue(1, 'Admin',               SQLITE3_TEXT);
+    $stmt->bindValue(2, 'admin@cleanspace.com', SQLITE3_TEXT);
+    $stmt->bindValue(3, $adminPass,            SQLITE3_TEXT);
+    $stmt->bindValue(4, 'admin',               SQLITE3_TEXT);
+    $stmt->execute();
+
+    $stmt->bindValue(1, 'Budi Santoso',        SQLITE3_TEXT);
+    $stmt->bindValue(2, 'user@cleanspace.com', SQLITE3_TEXT);
+    $stmt->bindValue(3, $userPass,             SQLITE3_TEXT);
+    $stmt->bindValue(4, 'user',                SQLITE3_TEXT);
     $stmt->execute();
 
     $db->exec("INSERT INTO services (nama_layanan, harga, deskripsi) VALUES
