@@ -1,10 +1,11 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
+$_sessionBasePath = $basePath ?? '../';
+include $_sessionBasePath . 'config/session.php';
 if (!isset($_SESSION['id'])) {
-    header('Location: ' . ($basePath ?? '../') . 'auth/login.php');
+    header('Location: /auth/login.php');
     exit;
 }
-if (!isset($db)) include ($basePath ?? '../') . 'config/koneksi.php';
+if (!isset($db)) include $_sessionBasePath . 'config/koneksi.php';
 
 $pageTitle   = $pageTitle   ?? 'Dashboard';
 $currentPage = $currentPage ?? '';

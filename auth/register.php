@@ -1,8 +1,8 @@
 <?php
-session_start();
+include '../config/session.php';
 
 if (isset($_SESSION['id'])) {
-    header("Location: ../user/booking.php");
+    header("Location: /user/dashboard.php");
     exit;
 }
 

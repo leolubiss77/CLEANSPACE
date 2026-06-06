@@ -1,8 +1,8 @@
 <?php
-session_start();
+include '../config/session.php';
 
 if (isset($_SESSION['id'])) {
-    $redirect = ($_SESSION['role'] === 'admin') ? '../admin/dashboard.php' : '../user/dashboard.php';
+    $redirect = ($_SESSION['role'] === 'admin') ? '/admin/dashboard.php' : '/user/dashboard.php';
     header("Location: $redirect");
     exit;
 }
@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
         $_SESSION['id']   = $user['id'];
         $_SESSION['nama'] = $user['nama'];
         $_SESSION['role'] = $user['role'];
-        $redirect = ($user['role'] === 'admin') ? '../admin/dashboard.php' : '../user/dashboard.php';
+        $redirect = ($user['role'] === 'admin') ? '/admin/dashboard.php' : '/user/dashboard.php';
         header("Location: $redirect");
         exit;
     } else {
