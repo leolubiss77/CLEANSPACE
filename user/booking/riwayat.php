@@ -10,6 +10,13 @@ $stmt->bindValue(1, $userId, SQLITE3_INTEGER);
 $data = $stmt->execute();
 ?>
 
+<?php if (isset($_GET['booked'])): ?>
+<div class="u-alert u-alert-success" style="margin-bottom:1.25rem;">
+  <i class="bi bi-check-circle-fill"></i>
+  <div><strong>Pesanan berhasil dibuat!</strong> Tim kami akan segera mengkonfirmasi pesanan Anda.</div>
+</div>
+<?php endif; ?>
+
 <div class="u-flex-between" style="margin-bottom:1.5rem;">
   <div>
     <h1 style="font-size:1.2rem;font-weight:800;color:var(--u-text);letter-spacing:-.02em;margin:0 0 .2rem;">Riwayat Pesanan</h1>

@@ -22,8 +22,12 @@ if (isset($_POST['booking'])) {
         $stmt->bindValue(3,$tanggal,    SQLITE3_TEXT);
         $stmt->bindValue(4,$jam,        SQLITE3_TEXT);
         $stmt->bindValue(5,$alamat,     SQLITE3_TEXT);
-        if ($stmt->execute()) { $success = 'Booking berhasil!'; $_POST = []; }
-        else { $error = 'Booking gagal, coba lagi.'; }
+        if ($stmt->execute()) {
+            header('Location: /user/booking/riwayat.php?booked=1');
+            exit;
+        } else {
+            $error = 'Booking gagal, coba lagi.';
+        }
     }
 }
 

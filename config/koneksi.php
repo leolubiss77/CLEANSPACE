@@ -1,8 +1,20 @@
 <?php
-$dbPath = __DIR__ . '/../database/cleanspace.db';
+// Di Railway: salin DB seed ke /tmp agar data bertahan & writable
+// Di localhost: pakai path database/ biasa
+$srcPath = __DIR__ . '/../database/cleanspace.db';
+$tmpPath = '/tmp/cleanspace.db';
 
-if (!is_dir(dirname($dbPath))) {
-    mkdir(dirname($dbPath), 0777, true);
+if (getenv('RAILWAY_ENVIRONMENT') !== false) {
+    // Pakai /tmp — salin dari git jika belum ada di sana
+    if (!file_exists($tmpPath) && file_exists($srcPath)) {
+        copy($srcPath, $tmpPath);
+    }
+    $dbPath = $tmpPath;
+} else {
+    $dbPath = $srcPath;
+    if (!is_dir(dirname($dbPath))) {
+        mkdir(dirname($dbPath), 0777, true);
+    }
 }
 
 $db = new SQLite3($dbPath);
