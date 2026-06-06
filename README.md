@@ -1,6 +1,27 @@
-# CleanSpace — Aplikasi Layanan Kebersihan Berbasis Web
+# CleanSpace — Platform Layanan Kebersihan Profesional
 
-CleanSpace adalah aplikasi web untuk pemesanan jasa kebersihan rumah dan kantor secara online. Dibangun menggunakan PHP native, SQLite, dan Bootstrap 5.
+CleanSpace adalah sistem manajemen layanan cleaning service berbasis web dengan tampilan modern sekelas SaaS profesional. Dibangun menggunakan PHP native, SQLite, dan custom design system tanpa framework CSS eksternal.
+
+---
+
+## Identitas Tim
+
+| NIM | Nama | Peran |
+|---|---|---|
+| 2409010266 | *(nama)* | Project Manager / Full Stack Developer |
+| 2409010237 | *(nama)* | Backend Developer & Database Designer |
+| 2409010228 | *(nama)* | Frontend Developer & UI/UX Designer |
+| 2409010256 | *(nama)* | System Analyst & Documentation |
+| 2409010233 | *(nama)* | Tester, Deployment & Quality Assurance |
+
+---
+
+## Link Penting
+
+| | Link |
+|---|---|
+| **Live Demo** | https://cleanspace-production-b05d.up.railway.app |
+| **Repository** | https://github.com/leolubiss77/CLEANSPACE |
 
 ---
 
@@ -12,22 +33,35 @@ CleanSpace adalah aplikasi web untuk pemesanan jasa kebersihan rumah dan kantor 
 4. [Alur Penggunaan](#alur-penggunaan)
 5. [Skema Database](#skema-database)
 6. [Cara Menjalankan Secara Lokal](#cara-menjalankan-secara-lokal)
-7. [Akun Default](#akun-default)
-8. [Link Demo](#link-demo)
+7. [Akun Demo](#akun-demo)
+8. [Fitur Keamanan](#fitur-keamanan)
+9. [Data Layanan](#data-layanan)
 
 ---
 
 ## Fitur Aplikasi
 
+### Halaman Publik (Landing Page)
+- Navbar sticky dengan efek glassmorphism saat di-scroll
+- Hero section dengan animasi gradient dan floating card
+- Section social proof, fitur unggulan, cara kerja
+- Pricing section 3 tier (Basic, Pro, Premium)
+- Testimonial grid dengan avatar dan rating bintang
+- FAQ accordion interaktif
+- CTA section dan footer lengkap
+
 ### Pengguna (User)
-- Registrasi dan login akun
-- Memesan layanan kebersihan (pilih jenis layanan, tanggal, jam, dan alamat)
-- Melihat riwayat pesanan beserta status terkini
+- Registrasi akun dengan password strength indicator
+- Login dengan split layout dan toggle show/hide password
+- Booking layanan: pilih layanan via card visual, tanggal, jam, alamat
+- Preview ringkasan pesanan real-time di sidebar
+- Riwayat pesanan dengan status badge berwarna
 
 ### Admin
-- Melihat semua pesanan yang masuk beserta statistik ringkasan
-- Menugaskan petugas kebersihan ke pesanan tertentu
-- Menandai pesanan sebagai selesai
+- Dashboard dengan stat cards (Total, Menunggu, Ditugaskan, Selesai)
+- Tabel semua pesanan dengan avatar inisial pelanggan
+- Assign petugas ke pesanan via card visual
+- Tandai pesanan sebagai selesai dengan halaman konfirmasi
 
 ---
 
@@ -35,12 +69,13 @@ CleanSpace adalah aplikasi web untuk pemesanan jasa kebersihan rumah dan kantor 
 
 | Teknologi | Kegunaan |
 |---|---|
-| PHP 8 | Bahasa pemrograman backend |
+| PHP 8 | Bahasa pemrograman backend (server-side) |
 | SQLite 3 | Database ringan berbasis file |
-| Bootstrap 5.3 | Framework CSS untuk tampilan responsif |
-| Bootstrap Icons | Ikon antarmuka |
-| HTML5 & CSS3 | Struktur dan gaya halaman |
-| Railway | Platform hosting cloud gratis |
+| CSS Variables & Custom Design System | Design system konsisten tanpa framework eksternal |
+| Bootstrap Icons 1.11 | Ikon antarmuka pengguna |
+| Google Fonts (Inter) | Tipografi modern |
+| Vanilla JavaScript | Interaktivitas (navbar scroll, FAQ, booking summary) |
+| Railway | Platform cloud hosting & deployment |
 
 ---
 
@@ -49,32 +84,35 @@ CleanSpace adalah aplikasi web untuk pemesanan jasa kebersihan rumah dan kantor 
 ```
 CLEANSPACE/
 │
-├── index.php               # Landing page (halaman utama publik)
-├── style.css               # Custom CSS tambahan
-├── composer.json           # Konfigurasi PHP project (untuk Railway)
-├── Procfile                # Perintah start server untuk Railway
+├── index.php                   # Landing page publik (redesign SaaS)
+├── composer.json               # Konfigurasi PHP project
+├── Procfile                    # Perintah start server untuk Railway
+│
+├── assets/
+│   └── css/
+│       └── style.css           # Design system lengkap (CSS Variables, animasi)
 │
 ├── auth/
-│   ├── login.php           # Halaman login
-│   ├── register.php        # Halaman registrasi
-│   └── logout.php          # Proses logout (hapus session)
+│   ├── login.php               # Login dengan split layout
+│   ├── register.php            # Registrasi dengan password strength indicator
+│   └── logout.php              # Proses logout
 │
 ├── user/
-│   ├── booking.php         # Form pemesanan layanan
-│   └── history.php         # Riwayat pesanan pengguna
+│   ├── booking.php             # Form booking dengan service card & summary sidebar
+│   └── history.php             # Riwayat pesanan pengguna
 │
 ├── admin/
-│   ├── dashboard.php       # Dashboard admin dengan statistik & tabel pesanan
-│   ├── assign_worker.php   # Form penugasan petugas ke pesanan
-│   └── update_status.php   # Halaman konfirmasi tandai pesanan selesai
+│   ├── dashboard.php           # Dashboard admin dengan stat cards & tabel
+│   ├── assign_worker.php       # Assign petugas dengan card visual
+│   └── update_status.php       # Konfirmasi tandai pesanan selesai
 │
 ├── config/
-│   ├── koneksi.php         # Koneksi database + inisialisasi tabel otomatis
-│   ├── header.php          # Template navbar (dipakai semua halaman)
-│   └── footer.php          # Template footer (dipakai semua halaman)
+│   ├── koneksi.php             # Koneksi database + seed data otomatis
+│   ├── header.php              # Layout sidebar + topbar (semua halaman dalam)
+│   └── footer.php              # Penutup layout
 │
 └── database/
-    └── cleanspace.db       # File database SQLite
+    └── cleanspace.db           # File database SQLite
 ```
 
 ---
@@ -83,7 +121,7 @@ CLEANSPACE/
 
 ### Alur User
 ```
-Landing Page → Register → Login → Booking Layanan → Lihat Riwayat Pesanan
+Landing Page → Register → Login → Booking Layanan → Lihat Riwayat
 ```
 
 ### Alur Admin
@@ -143,13 +181,14 @@ Menunggu Konfirmasi  →  Petugas Ditugaskan  →  Selesai
 
 ### Prasyarat
 - PHP 8.0 atau lebih baru
-- Ekstensi SQLite3 aktif
+- Ekstensi SQLite3 aktif (biasanya sudah aktif by default)
 
 ### Langkah-langkah
 
-**1. Clone atau download project ini**
+**1. Clone repository**
 ```bash
-cd /lokasi/project
+git clone https://github.com/leolubiss77/CLEANSPACE.git
+cd CLEANSPACE
 ```
 
 **2. Jalankan PHP built-in server**
@@ -159,48 +198,47 @@ php -S localhost:8888
 
 **3. Buka di browser**
 ```
-http://localhost:8888/index.php
+http://localhost:8888
 ```
+
+Database dan akun demo akan dibuat otomatis saat aplikasi pertama kali dijalankan.
 
 ---
 
-## Akun Default
+## Akun Demo
 
 Akun berikut tersedia secara otomatis saat pertama kali aplikasi dijalankan:
 
 | Role | Email | Password |
 |---|---|---|
 | Admin | admin@cleanspace.com | admin123 |
+| User | user@cleanspace.com | user123 |
 
-Untuk akun user, silakan daftar melalui halaman **Register**.
+Untuk akun user tambahan, daftar melalui halaman **Register**.
 
 ---
 
 ## Fitur Keamanan
 
-- Password disimpan menggunakan **bcrypt** (`password_hash` PHP)
-- Semua input divalidasi dan di-escape menggunakan `htmlspecialchars()`
-- Query database menggunakan **prepared statement** untuk mencegah SQL Injection
-- Halaman user dan admin dilindungi dengan pengecekan session
-- Halaman admin memeriksa role `admin` sebelum memberikan akses
-
----
-
-## Link Demo
-
-🌐 **https://cleanspace-production-b05d.up.railway.app**
-
----
-
-## Data Layanan yang Tersedia
-
-| Layanan | Harga |
+| Fitur | Implementasi |
 |---|---|
-| Basic Cleaning | Rp 100.000 |
-| Deep Cleaning | Rp 250.000 |
-| Office Cleaning | Rp 300.000 |
-| Bathroom Cleaning | Rp 150.000 |
+| Enkripsi password | `password_hash()` dengan algoritma **bcrypt** |
+| Pencegahan SQL Injection | Seluruh query menggunakan **prepared statement** |
+| Pencegahan XSS | Semua output melalui `htmlspecialchars()` |
+| Proteksi halaman | Pengecekan **session** di setiap halaman |
+| Pembatasan akses admin | Verifikasi `$_SESSION['role'] === 'admin'` |
 
 ---
 
-*Dibuat sebagai proyek pembelajaran pengembangan web dengan PHP dan SQLite.*
+## Data Layanan
+
+| Layanan | Harga | Deskripsi |
+|---|---|---|
+| Basic Cleaning | Rp 100.000 | Pembersihan dasar rumah |
+| Bathroom Cleaning | Rp 150.000 | Pembersihan kamar mandi |
+| Deep Cleaning | Rp 250.000 | Pembersihan menyeluruh |
+| Office Cleaning | Rp 300.000 | Pembersihan kantor |
+
+---
+
+*Proyek ini dibuat sebagai tugas akhir mata kuliah Pemrograman Web — Tim CleanSpace.*
