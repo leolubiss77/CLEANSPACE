@@ -2,56 +2,80 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+$userName = htmlspecialchars($_SESSION['nama'] ?? '');
+$userInitial = strtoupper(mb_substr($_SESSION['nama'] ?? 'U', 0, 1));
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($pageTitle ?? 'CleanSpace') ?> | CleanSpace</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="<?= $basePath ?>style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?= htmlspecialchars($pageTitle ?? 'CleanSpace') ?> — CleanSpace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="<?= $basePath ?>assets/css/style.css" rel="stylesheet">
 </head>
 <body>
+<div class="dashboard-layout">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="<?= $basePath ?>index.php">
-            <i class="bi bi-droplet-half me-2"></i>CleanSpace
-        </a>
-        <div class="d-flex align-items-center gap-3">
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                <a href="<?= $basePath ?>admin/dashboard.php" class="nav-link-custom">
-                    <i class="bi bi-speedometer2 me-1"></i>Dashboard
-                </a>
-            <?php else: ?>
-                <a href="<?= $basePath ?>user/booking.php" class="nav-link-custom">
-                    <i class="bi bi-calendar-plus me-1"></i>Booking
-                </a>
-                <a href="<?= $basePath ?>user/history.php" class="nav-link-custom">
-                    <i class="bi bi-clock-history me-1"></i>Riwayat
-                </a>
-            <?php endif; ?>
-
-            <div class="dropdown">
-                <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle me-1"></i><?= htmlspecialchars($_SESSION['nama'] ?? '') ?>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                    <li>
-                        <span class="dropdown-item-text small text-muted px-3">
-                            <?= htmlspecialchars($_SESSION['role'] === 'admin' ? 'Administrator' : 'Pelanggan') ?>
-                        </span>
-                    </li>
-                    <li><hr class="dropdown-divider my-1"></li>
-                    <li>
-                        <a class="dropdown-item text-danger" href="<?= $basePath ?>auth/logout.php">
-                            <i class="bi bi-box-arrow-right me-2"></i>Logout
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><i class="bi bi-droplet-half"></i></div>
+      CleanSpace
     </div>
-</nav>
+
+    <?php if ($isAdmin): ?>
+      <div class="sidebar-section-label">Admin</div>
+      <a href="<?= $basePath ?>admin/dashboard.php"
+         class="sidebar-link <?= (strpos($_SERVER['PHP_SELF'], 'dashboard') !== false) ? 'active' : '' ?>">
+        <i class="bi bi-speedometer2"></i> Dashboard
+      </a>
+
+    <?php else: ?>
+      <div class="sidebar-section-label">Menu</div>
+      <a href="<?= $basePath ?>user/booking.php"
+         class="sidebar-link <?= (strpos($_SERVER['PHP_SELF'], 'booking') !== false) ? 'active' : '' ?>">
+        <i class="bi bi-calendar-plus"></i> Booking Layanan
+      </a>
+      <a href="<?= $basePath ?>user/history.php"
+         class="sidebar-link <?= (strpos($_SERVER['PHP_SELF'], 'history') !== false) ? 'active' : '' ?>">
+        <i class="bi bi-clock-history"></i> Riwayat Pesanan
+      </a>
+    <?php endif; ?>
+
+    <div class="sidebar-section-label">Akun</div>
+    <a href="<?= $basePath ?>auth/logout.php" class="sidebar-link" style="color:rgba(239,68,68,.7);">
+      <i class="bi bi-box-arrow-right"></i> Keluar
+    </a>
+
+    <div class="sidebar-user">
+      <div class="sidebar-user-inner">
+        <div class="sidebar-user-avatar"><?= $userInitial ?></div>
+        <div>
+          <div class="sidebar-user-name"><?= $userName ?></div>
+          <div class="sidebar-user-role"><?= $isAdmin ? 'Administrator' : 'Pelanggan' ?></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main-content">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title"><?= htmlspecialchars($pageTitle ?? 'CleanSpace') ?></div>
+        <div class="topbar-sub"><?= htmlspecialchars($pageSubtitle ?? 'CleanSpace Platform') ?></div>
+      </div>
+      <div class="topbar-actions">
+        <?php if (!$isAdmin): ?>
+        <a href="<?= $basePath ?>user/booking.php" class="btn btn-primary btn-sm">
+          <i class="bi bi-plus-lg"></i> Pesan Baru
+        </a>
+        <?php endif; ?>
+        <div class="sidebar-user-avatar" style="margin:0;cursor:default;" title="<?= $userName ?>">
+          <?= $userInitial ?>
+        </div>
+      </div>
+    </div>
+    <div class="page-body">
